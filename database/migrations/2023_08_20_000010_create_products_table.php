@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->string('description')->nullable();
             $table->time('prepare_time')->nullable();
             $table->float('price', 15, 2)->nullable();
-            $table->integer('status')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

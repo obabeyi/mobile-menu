@@ -104,7 +104,7 @@
                             {{ trans('cruds.product.fields.status') }}
                         </th>
                         <td>
-                            {{ $product->status }}
+                            {{ App\Models\Product::STATUS_SELECT[$product->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>

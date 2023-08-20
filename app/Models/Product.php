@@ -27,12 +27,18 @@ class Product extends Model implements HasMedia
         'deleted_at',
     ];
 
+    public const STATUS_SELECT = [
+        'Active'  => 'Aktif',
+        'Passive' => 'Pasif',
+    ];
+
     public static $searchable = [
         'product_code',
         'barcode',
         'name',
         'slug',
         'image',
+        'status',
     ];
 
     protected $fillable = [

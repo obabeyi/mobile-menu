@@ -12,7 +12,7 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->integer('parent')->nullable();
-            $table->integer('status')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

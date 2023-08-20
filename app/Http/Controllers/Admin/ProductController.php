@@ -86,7 +86,7 @@ class ProductController extends Controller
                 return $row->price ? $row->price : '';
             });
             $table->editColumn('status', function ($row) {
-                return $row->status ? $row->status : '';
+                return $row->status ? Product::STATUS_SELECT[$row->status] : '';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'image', 'category']);

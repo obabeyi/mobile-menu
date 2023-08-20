@@ -1,17 +1,13 @@
 <?php
 
-use App\Http\Controllers\Frontend\FrontendController;
+Route::redirect('/', '/login');
+Route::get('/home', function () {
+    if (session('status')) {
+        return redirect()->route('admin.home')->with('status', session('status'));
+    }
 
-// Route::redirect('/', '/login');
-// Route::get('/home', function () {
-//     if (session('status')) {
-//         return redirect()->route('admin.home')->with('status', session('status'));
-//     }
-
-//     return redirect()->route('admin.home');
-// });
-
-Route::get('/', [FrontendController::class, 'index']);
+    return redirect()->route('admin.home');
+});
 
 Auth::routes(['register' => false]);
 
@@ -77,6 +73,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('content-pages/media', 'ContentPageController@storeMedia')->name('content-pages.storeMedia');
     Route::post('content-pages/ckmedia', 'ContentPageController@storeCKEditorImages')->name('content-pages.storeCKEditorImages');
     Route::resource('content-pages', 'ContentPageController');
+
+    // Settings
+    Route::delete('settings/destroy', 'SettingsController@massDestroy')->name('settings.massDestroy');
+    Route::resource('settings', 'SettingsController');
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
 });
