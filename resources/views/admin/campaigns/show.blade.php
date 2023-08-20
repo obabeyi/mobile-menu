@@ -56,7 +56,7 @@
                             {{ trans('cruds.campaign.fields.status') }}
                         </th>
                         <td>
-                            {{ $campaign->status }}
+                            {{ App\Models\Campaign::STATUS_SELECT[$campaign->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>

@@ -100,7 +100,7 @@
                                 {{ $product->price ?? '' }}
                             </td>
                             <td>
-                                {{ $product->status ?? '' }}
+                                {{ App\Models\Product::STATUS_SELECT[$product->status] ?? '' }}
                             </td>
                             <td>
                                 @can('product_show')

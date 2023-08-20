@@ -56,7 +56,12 @@
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\Campaign::STATUS_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
                         </td>
                         <td>
                         </td>
@@ -85,7 +90,7 @@
                                 {{ $campaign->order ?? '' }}
                             </td>
                             <td>
-                                {{ $campaign->status ?? '' }}
+                                {{ App\Models\Campaign::STATUS_SELECT[$campaign->status] ?? '' }}
                             </td>
                             <td>
                                 @can('campaign_show')

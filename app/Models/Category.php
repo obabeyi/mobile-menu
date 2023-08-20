@@ -31,6 +31,11 @@ class Category extends Model implements HasMedia
         'deleted_at',
     ];
 
+    public const STATUS_SELECT = [
+        'Active'  => 'Aktif',
+        'Passive' => 'Pasif',
+    ];
+
     protected $fillable = [
         'name',
         'parent',

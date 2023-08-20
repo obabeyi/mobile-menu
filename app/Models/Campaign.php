@@ -16,6 +16,10 @@ class Campaign extends Model implements HasMedia
 
     public $table = 'campaigns';
 
+    public static $searchable = [
+        'status',
+    ];
+
     protected $appends = [
         'campain_photo',
     ];
@@ -24,6 +28,11 @@ class Campaign extends Model implements HasMedia
         'created_at',
         'updated_at',
         'deleted_at',
+    ];
+
+    public const STATUS_SELECT = [
+        'Active'  => 'Aktif',
+        'Passive' => 'Pasif',
     ];
 
     protected $fillable = [

@@ -56,7 +56,12 @@
                         <td>
                         </td>
                         <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\Category::STATUS_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
                         </td>
                         <td>
                         </td>
@@ -85,7 +90,7 @@
                                 @endif
                             </td>
                             <td>
-                                {{ $category->status ?? '' }}
+                                {{ App\Models\Category::STATUS_SELECT[$category->status] ?? '' }}
                             </td>
                             <td>
                                 @can('category_show')

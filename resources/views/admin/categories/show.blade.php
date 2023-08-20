@@ -56,7 +56,7 @@
                             {{ trans('cruds.category.fields.status') }}
                         </th>
                         <td>
-                            {{ $category->status }}
+                            {{ App\Models\Category::STATUS_SELECT[$category->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>
