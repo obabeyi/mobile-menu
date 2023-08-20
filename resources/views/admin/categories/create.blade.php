@@ -56,6 +56,16 @@
                 <span class="help-block">{{ trans('cruds.category.fields.status_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="order">{{ trans('cruds.category.fields.order') }}</label>
+                <input class="form-control {{ $errors->has('order') ? 'is-invalid' : '' }}" type="text" name="order" id="order" value="{{ old('order', '') }}">
+                @if($errors->has('order'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('order') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.category.fields.order_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

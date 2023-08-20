@@ -59,6 +59,14 @@
                             {{ App\Models\Category::STATUS_SELECT[$category->status] ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.category.fields.order') }}
+                        </th>
+                        <td>
+                            {{ $category->order }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
