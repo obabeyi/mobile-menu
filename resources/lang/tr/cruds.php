@@ -85,6 +85,8 @@ return [
             'deleted_at_helper'    => ' ',
             'status'               => 'Status',
             'status_helper'        => ' ',
+            'description'          => 'Açıklama',
+            'description_helper'   => ' ',
         ],
     ],
     'category' => [
