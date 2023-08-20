@@ -27,6 +27,10 @@ class StoreCategoryRequest extends FormRequest
                 'min:-2147483648',
                 'max:2147483647',
             ],
+            'order' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }
