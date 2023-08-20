@@ -1,13 +1,17 @@
 <?php
 
-Route::redirect('/', '/login');
-Route::get('/home', function () {
-    if (session('status')) {
-        return redirect()->route('admin.home')->with('status', session('status'));
-    }
+use App\Http\Controllers\Frontend\FrontendController;
 
-    return redirect()->route('admin.home');
-});
+// Route::redirect('/', '/login');
+// Route::get('/home', function () {
+//     if (session('status')) {
+//         return redirect()->route('admin.home')->with('status', session('status'));
+//     }
+
+//     return redirect()->route('admin.home');
+// });
+
+Route::get('/', [FrontendController::class, 'index']);
 
 Auth::routes(['register' => false]);
 
