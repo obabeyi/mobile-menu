@@ -23,6 +23,7 @@ class Category extends Model implements HasMedia
     public static $searchable = [
         'name',
         'parent',
+        'order',
     ];
 
     protected $dates = [
@@ -40,6 +41,7 @@ class Category extends Model implements HasMedia
         'name',
         'parent',
         'status',
+        'order',
         'created_at',
         'updated_at',
         'deleted_at',

@@ -38,6 +38,9 @@
                             {{ trans('cruds.category.fields.status') }}
                         </th>
                         <th>
+                            {{ trans('cruds.category.fields.order') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -62,6 +65,9 @@
                                     <option value="{{ $item }}">{{ $item }}</option>
                                 @endforeach
                             </select>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
                         </td>
@@ -91,6 +97,9 @@
                             </td>
                             <td>
                                 {{ App\Models\Category::STATUS_SELECT[$category->status] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $category->order ?? '' }}
                             </td>
                             <td>
                                 @can('category_show')

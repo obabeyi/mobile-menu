@@ -107,6 +107,8 @@ return [
             'deleted_at_helper' => ' ',
             'status'            => 'Status',
             'status_helper'     => ' ',
+            'order'             => 'Order',
+            'order_helper'      => ' ',
         ],
     ],
     'page' => [
