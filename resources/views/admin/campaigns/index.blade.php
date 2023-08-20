@@ -38,6 +38,9 @@
                             {{ trans('cruds.campaign.fields.status') }}
                         </th>
                         <th>
+                            {{ trans('cruds.campaign.fields.description') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -62,6 +65,9 @@
                                     <option value="{{ $item }}">{{ $item }}</option>
                                 @endforeach
                             </select>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
                         </td>
@@ -91,6 +97,9 @@
                             </td>
                             <td>
                                 {{ App\Models\Campaign::STATUS_SELECT[$campaign->status] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $campaign->description ?? '' }}
                             </td>
                             <td>
                                 @can('campaign_show')
