@@ -13,4 +13,9 @@ class FrontendController extends Controller
         return view('frontend.home');
         // dd("geldi");
     }
+    public function categories()
+    {
+        return view('frontend.body.category');
+        // dd("geldi");
+    }
 }
