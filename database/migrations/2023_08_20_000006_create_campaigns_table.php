@@ -13,6 +13,7 @@ class CreateCampaignsTable extends Migration
             $table->string('name');
             $table->integer('order')->nullable();
             $table->string('status')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

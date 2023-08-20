@@ -59,6 +59,14 @@
                             {{ App\Models\Campaign::STATUS_SELECT[$campaign->status] ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.campaign.fields.description') }}
+                        </th>
+                        <td>
+                            {{ $campaign->description }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

@@ -39,6 +39,7 @@ class Campaign extends Model implements HasMedia
         'name',
         'order',
         'status',
+        'description',
         'created_at',
         'updated_at',
         'deleted_at',
