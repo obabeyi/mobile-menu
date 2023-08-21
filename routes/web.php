@@ -1,13 +1,9 @@
 <?php
 
-Route::redirect('/', '/login');
-Route::get('/home', function () {
-    if (session('status')) {
-        return redirect()->route('admin.home')->with('status', session('status'));
-    }
 
-    return redirect()->route('admin.home');
-});
+use App\Http\Controllers\Frontend\FrontendController;
+
+
 
 Auth::routes(['register' => false]);
 
@@ -89,3 +85,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
     }
 });
+route::get('/', [FrontendController::class, 'index']);
+route::get('/categories', [FrontendController::class, 'categories'])->name('categories');
+route::get('/category/{slug}/{id}', [FrontendController::class, 'categoryDetail'])->name('category.detail');
+route::get('/product/{slug}/{id}', [FrontendController::class, 'productDetail'])->name('product.detail');

@@ -3,54 +3,39 @@
     <!-- menu details -->
     <div class="menu-details segments-page">
         <div class="container">
-            <div id="tabs1">
-                <div class="row">
-                    <div class="col s12">
-                        <div class="content">
-                            <img src="images/menu-details1.jpg" alt="menu">
+
+            @foreach ($products as $productKey => $product)
+                @foreach ($product->media as $mediaKey => $image)
+                    <div id="tabs{{ $productKey }}_{{ $mediaKey }}">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="content">
+                                    <img src="{{ $image->getUrl() }}" alt="menu">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div id="tabs2">
-                <div class="row">
-                    <div class="col s12">
-                        <div class="content">
-                            <img src="images/menu-details2.jpg" alt="menu">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="tabs3">
-                <div class="row">
-                    <div class="col s12">
-                        <div class="content">
-                            <img src="images/menu-details3.jpg" alt="menu">
-                        </div>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @endforeach
+
             <div class="row no-mb">
                 <div class="col s12">
                     <ul class="tabs">
-                        <li class="tab col s4">
-                            <a class="active" href="#tabs1">
-                                <img src="images/menu-details1.jpg" alt="">
-                            </a>
-                        </li>
-                        <li class="tab col s4">
-                            <a class="active" href="#tabs2">
-                                <img src="images/menu-details2.jpg" alt="">
-                            </a>
-                        </li>
-                        <li class="tab col s4">
-                            <a class="active" href="#tabs3">
-                                <img src="images/menu-details3.jpg" alt="">
-                            </a>
-                        </li>
+                        @foreach ($products as $productKey => $product)
+                            @foreach ($product->media as $mediaKey => $image)
+                                <li class="tab col s4">
+                                    <a {{ $productKey == 0 && $mediaKey == 0 ? 'class=active' : '' }}
+                                        href="#tabs{{ $productKey }}_{{ $mediaKey }}">
+                                        <img src="{{ $image->getUrl() }}" alt="">
+                                    </a>
+                                </li>
+                            @endforeach
+                        @endforeach
                     </ul>
+
                 </div>
             </div>
+
             <div class="content-desc">
                 <span>Food</span>
                 <h5>Meat With Spicy Salty Sauce</h5>

@@ -39,12 +39,13 @@
     <script src="{{ asset('frontend/js/materialize.js') }}"></script>
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-
     <script>
         $(document).ready(function() {
             $(".owl-carousel").owlCarousel();
         });
     </script>
+    @yield('script')
+
 </body>
 
 </html>
