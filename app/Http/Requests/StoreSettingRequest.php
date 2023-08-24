@@ -17,11 +17,35 @@ class StoreSettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'key' => [
+            'firm_name' => [
                 'string',
                 'nullable',
             ],
-            'value' => [
+            'phone' => [
+                'string',
+                'nullable',
+            ],
+            'address' => [
+                'string',
+                'nullable',
+            ],
+            'open_work' => [
+                'string',
+                'nullable',
+            ],
+            'email' => [
+                'string',
+                'nullable',
+            ],
+            'facebook' => [
+                'string',
+                'nullable',
+            ],
+            'twitter' => [
+                'string',
+                'nullable',
+            ],
+            'instagram' => [
                 'string',
                 'nullable',
             ],

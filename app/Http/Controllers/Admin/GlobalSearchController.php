@@ -13,7 +13,6 @@ class GlobalSearchController extends Controller
         'Category' => 'cruds.category.title',
         'Comment'  => 'cruds.comment.title',
         'Product'  => 'cruds.product.title',
-        'Setting'  => 'cruds.setting.title',
     ];
 
     public function search(Request $request)
