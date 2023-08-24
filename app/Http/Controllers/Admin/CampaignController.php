@@ -12,18 +12,71 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class CampaignController extends Controller
 {
     use MediaUploadingTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('campaign_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $campaigns = Campaign::with(['media'])->get();
+        if ($request->ajax()) {
+            $query = Campaign::query()->select(sprintf('%s.*', (new Campaign)->table));
+            $table = Datatables::of($query);
 
-        return view('admin.campaigns.index', compact('campaigns'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'campaign_show';
+                $editGate      = 'campaign_edit';
+                $deleteGate    = 'campaign_delete';
+                $crudRoutePart = 'campaigns';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('campain_photo', function ($row) {
+                if ($photo = $row->campain_photo) {
+                    return sprintf(
+                        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
+                        $photo->url,
+                        $photo->thumbnail
+                    );
+                }
+
+                return '';
+            });
+            $table->editColumn('order', function ($row) {
+                return $row->order ? $row->order : '';
+            });
+            $table->editColumn('status', function ($row) {
+                return $row->status ? Campaign::STATUS_SELECT[$row->status] : '';
+            });
+            $table->editColumn('description', function ($row) {
+                return $row->description ? $row->description : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'campain_photo']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.campaigns.index');
     }
 
     public function create()

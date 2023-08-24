@@ -15,6 +15,64 @@
     </div>
 
     <div class="card-body">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Campaign">
+            <thead>
+                <tr>
+                    <th width="10">
+
+                    </th>
+                    <th>
+                        {{ trans('cruds.campaign.fields.id') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.campaign.fields.name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.campaign.fields.campain_photo') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.campaign.fields.order') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.campaign.fields.status') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.campaign.fields.description') }}
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search" strict="true">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach(App\Models\Campaign::STATUS_SELECT as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </thead>
+        </table>
         <div class="table-responsive">
             <table class=" table table-bordered table-striped table-hover datatable datatable-Campaign">
                 <thead>
@@ -141,14 +199,14 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('campaign_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.campaigns.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
+      var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -170,12 +228,28 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.campaigns.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'id', name: 'id' },
+{ data: 'name', name: 'name' },
+{ data: 'campain_photo', name: 'campain_photo', sortable: false, searchable: false },
+{ data: 'order', name: 'order' },
+{ data: 'status', name: 'status' },
+{ data: 'description', name: 'description' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' }
+    ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
-  });
-  let table = $('.datatable-Campaign:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  };
+  let table = $('.datatable-Campaign').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
@@ -202,7 +276,7 @@ table.on('column-visibility.dt', function(e, settings, column, state) {
           visibleColumnsIndexes.push(colIdx);
       });
   })
-})
+});
 
 </script>
 @endsection
