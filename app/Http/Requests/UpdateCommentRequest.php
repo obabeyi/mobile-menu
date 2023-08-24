@@ -23,9 +23,9 @@ class UpdateCommentRequest extends FormRequest
             ],
             'status' => [
                 'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+                // 'integer',
+                // 'min:-2147483648',
+                // 'max:2147483647',
             ],
             'review_score' => [
                 'nullable',

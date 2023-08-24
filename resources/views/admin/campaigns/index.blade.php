@@ -73,6 +73,120 @@
                 </tr>
             </thead>
         </table>
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-Campaign">
+                <thead>
+                    <tr>
+                        <th width="10">
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.campaign.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.campaign.fields.name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.campaign.fields.campain_photo') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.campaign.fields.order') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.campaign.fields.status') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.campaign.fields.description') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        </td>
+                        <td>
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\Campaign::STATUS_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($campaigns as $key => $campaign)
+                        <tr data-entry-id="{{ $campaign->id }}">
+                            <td>
+
+                            </td>
+                            <td>
+                                {{ $campaign->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $campaign->name ?? '' }}
+                            </td>
+                            <td>
+                                @if($campaign->campain_photo)
+                                    <a href="{{ $campaign->campain_photo->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $campaign->campain_photo->getUrl('thumb') }}">
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                {{ $campaign->order ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\Campaign::STATUS_SELECT[$campaign->status] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $campaign->description ?? '' }}
+                            </td>
+                            <td>
+                                @can('campaign_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.campaigns.show', $campaign->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
+
+                                @can('campaign_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.campaigns.edit', $campaign->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
+
+                                @can('campaign_delete')
+                                    <form action="{{ route('admin.campaigns.destroy', $campaign->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
+
+                            </td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

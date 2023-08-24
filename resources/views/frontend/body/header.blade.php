@@ -10,7 +10,7 @@
              </div>
              <div class="col s6">
                  <div class="content-center">
-                     <a href="index.html">
+                     <a href="{{ url('/') }}">
                          <h1>Aaem</h1>
                      </a>
                  </div>

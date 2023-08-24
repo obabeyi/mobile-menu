@@ -3,76 +3,66 @@
     <!-- menu details -->
     <div class="menu-details segments-page">
         <div class="container">
-            <div id="tabs1">
-                <div class="row">
-                    <div class="col s12">
-                        <div class="content">
-                            <img src="images/menu-details1.jpg" alt="menu">
+
+            @foreach ($products as $productKey => $product)
+                @foreach ($product->media as $mediaKey => $image)
+                    <div id="tabs{{ $productKey }}_{{ $mediaKey }}">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="content">
+                                    <img src="{{ $image->getUrl() }}" alt="menu">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div id="tabs2">
-                <div class="row">
-                    <div class="col s12">
-                        <div class="content">
-                            <img src="images/menu-details2.jpg" alt="menu">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="tabs3">
-                <div class="row">
-                    <div class="col s12">
-                        <div class="content">
-                            <img src="images/menu-details3.jpg" alt="menu">
-                        </div>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @endforeach
+
             <div class="row no-mb">
                 <div class="col s12">
                     <ul class="tabs">
-                        <li class="tab col s4">
-                            <a class="active" href="#tabs1">
-                                <img src="images/menu-details1.jpg" alt="">
-                            </a>
-                        </li>
-                        <li class="tab col s4">
-                            <a class="active" href="#tabs2">
-                                <img src="images/menu-details2.jpg" alt="">
-                            </a>
-                        </li>
-                        <li class="tab col s4">
-                            <a class="active" href="#tabs3">
-                                <img src="images/menu-details3.jpg" alt="">
-                            </a>
-                        </li>
+                        @foreach ($products as $productKey => $product)
+                            @foreach ($product->media as $mediaKey => $image)
+                                <li class="tab col s4">
+                                    <a {{ $productKey == 0 && $mediaKey == 0 ? 'class=active' : '' }}
+                                        href="#tabs{{ $productKey }}_{{ $mediaKey }}">
+                                        <img src="{{ $image->getUrl() }}" alt="">
+                                    </a>
+                                </li>
+                            @endforeach
+                        @endforeach
                     </ul>
+
                 </div>
             </div>
+            {{-- {{ dd($products) }} --}}
             <div class="content-desc">
-                <span>Food</span>
-                <h5>Meat With Spicy Salty Sauce</h5>
-                <h4>$23</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi ducimus, dolor aperiam impedit, sapiente
-                    natus magni eaque, optio quae aliquid saepe.</p>
-                <button class="button">Add to Cart</button>
+                <span>{{ $products->first()->category->name }}</span>
+                <h5>{{ $products->first()->name }}</h5>
+                <h4>{{ $products->first()->price }} ₺</h4>
+                <p>{{ $products->first()->description }}</p>
+                {{-- <button class="button">Add to Cart</button> --}}
             </div>
             <div class="review">
-                <h5>Review</h5>
+                <h5>Puanlama</h5>
                 <div class="comment-people">
-                    <div class="content">
-                        <div class="image">
+                    @php
+                        Carbon\Carbon::setLocale('tr');
+                        
+                    @endphp
+                    @foreach ($comments as $comment)
+                        <div class="content">
+                            {{-- <div class="image">
                             <img src="images/comment1.png" alt="">
+                        </div> --}}
+                            <div class="text">
+                                <h6>{{ $comment->name }}</h6>
+                                <p class="date">{{ $comment->created_at->isoFormat('D MMMM YYYY') }}</p>
+                                <p>{!! $comment->comment_detail !!}</p>
+                            </div>
                         </div>
-                        <div class="text">
-                            <h6>John Andy</h6>
-                            <p class="date">March 23, 2018</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus, non.</p>
-                        </div>
-                    </div>
-                    <div class="content reply">
+                    @endforeach
+                    {{-- <div class="content reply">
                         <div class="image">
                             <img src="images/comment2.png" alt="">
                         </div>
@@ -81,16 +71,25 @@
                             <p class="date">March 24, 2018</p>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus, non.</p>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="comment-add">
-                <h5>Leave Your Reply</h5>
-                <form>
-                    <input type="text" placeholder="Name">
-                    <input type="email" placeholder="Email">
-                    <textarea cols="30" rows="10" placeholder="Message"></textarea>
-                    <button class="button">Submit</button>
+                <h5>Yorum Bırakın</h5>
+                <form action="{{ route('send.comment') }}" method="POST">
+                    @csrf
+                    <input type="text" name="name" placeholder="İsim">
+                    {{-- <input type="email" placeholder="Mail"> --}}
+                    {{-- <select name="review_score" id="review_score">
+                        <option value="1">1 Yıldız</option>
+                        <option value="2">2 Yıldız</option>
+                        <option value="3">3 Yıldız</option>
+                        <option value="4">4 Yıldız</option>
+                        <option value="5">5 Yıldız</option>
+
+                    </select> --}}
+                    <textarea cols="30" rows="10" name="comment_detail" placeholder="Mesajınız"></textarea>
+                    <button class="button">Gönder</button>
                 </form>
             </div>
         </div>
