@@ -54,7 +54,8 @@
                     @foreach ($category as $row)
                         {{-- {{ dd($row->id) }} --}}
                         <a href="{{ route('category.detail', [Str::slug($row->name), $row->id]) }}">
-                            <div class="content c-first">
+                            <div class="content c-first"
+                                style="background:url('{{ $row->media->first() ? $row->media->first()->getUrl() : '' }}') ">
                                 <div class="mask"></div>
                                 <h4>{{ $row->name }}</h4>
                             </div>
@@ -76,213 +77,44 @@
             <div class="row no-mb">
                 <div class="col s12">
                     <ul class="tabs">
-                        <li class="tab col s3"><a class="active" href="#tabs1">Food</a></li>
-                        <li class="tab col s3"><a href="#tabs2">Drink</a></li>
+                        {{-- {{ dd($products) }} --}}
+                        @isset($category)
+                            @foreach ($category as $row)
+                                <li class="tab col s3"><a class="active"
+                                        href="#tabs{{ $row->id }}">{{ $row->name }}</a></li>
+                            @endforeach
+                        @endisset
+                        {{-- <li class="tab col s3"><a href="#tabs2">Drink</a></li>
                         <li class="tab col s3"><a href="#tabs3">Snack</a></li>
-                        <li class="tab col s3"><a href="#tabs4">Dessert</a></li>
+                        <li class="tab col s3"><a href="#tabs4">Dessert</a></li> --}}
                     </ul>
                 </div>
             </div>
-            <div id="tabs1">
-                <div class="row">
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/food1.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Meat Mix Foliage</h6>
-                                    <p class="price">$32</p>
+            @foreach ($category as $cat)
+                <div id="tabs{{ $cat->id }}">
+                    @foreach ($products as $product)
+                        @if ($product->category->id == $cat->id)
+                            <div class="row">
+                                <div class="col s6">
+                                    <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
+                                        <div class="content">
+                                            <img src="{{ $product->media->first() ? $product->media->first()->getUrl() : '' }}"
+                                                alt="menu">
+                                            <div class="text">
+                                                <h6>{{ $product->name }}</h6>
+                                                <p class="price">{{ $product->price }} ₺</p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
+
                             </div>
-                        </a>
-                    </div>
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/food2.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Delicious Fungus</h6>
-                                    <p class="price">$15</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                        @endif
+                    @endforeach
+
                 </div>
-                <div class="row">
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/food3.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Meat Sauce</h6>
-                                    <p class="price">$10</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/food4.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Meat Salad</h6>
-                                    <p class="price">$22</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div id="tabs2">
-                <div class="row">
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/drink1.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Fresh Juice</h6>
-                                    <p class="price">$41</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/drink2.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Fresh Juice</h6>
-                                    <p class="price">$19</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/drink3.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Fresh Juice</h6>
-                                    <p class="price">$27</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/drink4.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Fresh Juice</h6>
-                                    <p class="price">$34</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div id="tabs3">
-                <div class="row">
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/snack1.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Fried Pumpkin</h6>
-                                    <p class="price">$16</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/snack2.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Fried Pumpkin</h6>
-                                    <p class="price">$22</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/snack3.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Fried Pumpkin</h6>
-                                    <p class="price">$14</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/snack4.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Fried Pumpkin</h6>
-                                    <p class="price">$12</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div id="tabs4">
-                <div class="row">
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/dessert1.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Pandan Bread</h6>
-                                    <p class="price">$15</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/dessert2.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Pandan Bread</h6>
-                                    <p class="price">$21</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/dessert3.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Pandan Bread</h6>
-                                    <p class="price">$14</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col s6">
-                        <a href="menu-details.html">
-                            <div class="content">
-                                <img src="images/dessert4.jpg" alt="menu">
-                                <div class="text">
-                                    <h6>Pandan Bread</h6>
-                                    <p class="price">$32</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+
         </div>
     </div>
     <!-- end menu -->

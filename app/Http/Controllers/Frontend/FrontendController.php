@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -15,8 +17,9 @@ class FrontendController extends Controller
     {
         $campaigns = Campaign::with('media')->latest('id')->take('3')->get();
         // dd($campaigns);
-        $category = Category::orderBy('order', 'asc')->get();
-        return view('frontend.home', compact('campaigns', 'category'));
+        $category = Category::with('media')->orderBy('order', 'asc')->get();
+        $products = Product::with('category')->get();
+        return view('frontend.home', compact('campaigns', 'category', 'products'));
         // dd("geldi");
     }
 
@@ -38,9 +41,12 @@ class FrontendController extends Controller
     }
     public function productDetail($slug, $id)
     {
+
         $products = Product::with('category', 'media')->where('id', $id)->get();
         // dd($products);
-        return view('frontend.body.product_details', compact('products'));
+        $comments = Comment::latest()->get();
+
+        return view('frontend.body.product_details', compact('products', 'comments'));
         // dd("geldi");
     }
 }
