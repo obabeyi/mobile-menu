@@ -25,18 +25,90 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.setting.fields.key') }}
+                            {{ trans('cruds.setting.fields.firm_name') }}
                         </th>
                         <td>
-                            {{ $setting->key }}
+                            {{ $setting->firm_name }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.setting.fields.value') }}
+                            {{ trans('cruds.setting.fields.phone') }}
                         </th>
                         <td>
-                            {{ $setting->value }}
+                            {{ $setting->phone }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.address') }}
+                        </th>
+                        <td>
+                            {{ $setting->address }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.open_work') }}
+                        </th>
+                        <td>
+                            {{ $setting->open_work }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.email') }}
+                        </th>
+                        <td>
+                            {{ $setting->email }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.firm_logo') }}
+                        </th>
+                        <td>
+                            @if($setting->firm_logo)
+                                <a href="{{ $setting->firm_logo->getUrl() }}" target="_blank" style="display: inline-block">
+                                    <img src="{{ $setting->firm_logo->getUrl('thumb') }}">
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.favicon') }}
+                        </th>
+                        <td>
+                            @if($setting->favicon)
+                                <a href="{{ $setting->favicon->getUrl() }}" target="_blank" style="display: inline-block">
+                                    <img src="{{ $setting->favicon->getUrl('thumb') }}">
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.facebook') }}
+                        </th>
+                        <td>
+                            {{ $setting->facebook }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.twitter') }}
+                        </th>
+                        <td>
+                            {{ $setting->twitter }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.setting.fields.instagram') }}
+                        </th>
+                        <td>
+                            {{ $setting->instagram }}
                         </td>
                     </tr>
                 </tbody>

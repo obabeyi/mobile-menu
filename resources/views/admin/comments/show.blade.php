@@ -44,7 +44,7 @@
                             {{ trans('cruds.comment.fields.status') }}
                         </th>
                         <td>
-                            {{ $comment->status }}
+                            {{ App\Models\Comment::STATUS_SELECT[$comment->status] ?? '' }}
                         </td>
                     </tr>
                     <tr>

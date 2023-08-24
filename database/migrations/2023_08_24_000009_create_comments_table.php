@@ -12,7 +12,7 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->longText('comment_detail')->nullable();
-            $table->string('status')->default('passive')->nullable();
+            $table->string('status')->nullable();
             $table->integer('review_score')->nullable();
             $table->timestamps();
             $table->softDeletes();

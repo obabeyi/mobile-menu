@@ -48,7 +48,12 @@
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
-                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\Comment::STATUS_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
                         </td>
                         <td>
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -70,7 +75,7 @@
                                 {{ $comment->name ?? '' }}
                             </td>
                             <td>
-                                {{ $comment->status ?? '' }}
+                                {{ App\Models\Comment::STATUS_SELECT[$comment->status] ?? '' }}
                             </td>
                             <td>
                                 {{ $comment->review_score ?? '' }}
