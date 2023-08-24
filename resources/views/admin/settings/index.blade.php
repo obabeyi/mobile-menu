@@ -25,16 +25,62 @@
                         {{ trans('cruds.setting.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.setting.fields.key') }}
+                        {{ trans('cruds.setting.fields.firm_name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.setting.fields.value') }}
+                        {{ trans('cruds.setting.fields.phone') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.setting.fields.address') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.setting.fields.open_work') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.setting.fields.email') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.setting.fields.firm_logo') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.setting.fields.favicon') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.setting.fields.facebook') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.setting.fields.twitter') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.setting.fields.instagram') }}
                     </th>
                     <th>
                         &nbsp;
                     </th>
                 </tr>
                 <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                    </td>
                     <td>
                     </td>
                     <td>
@@ -102,8 +148,16 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'key', name: 'key' },
-{ data: 'value', name: 'value' },
+{ data: 'firm_name', name: 'firm_name' },
+{ data: 'phone', name: 'phone' },
+{ data: 'address', name: 'address' },
+{ data: 'open_work', name: 'open_work' },
+{ data: 'email', name: 'email' },
+{ data: 'firm_logo', name: 'firm_logo', sortable: false, searchable: false },
+{ data: 'favicon', name: 'favicon', sortable: false, searchable: false },
+{ data: 'facebook', name: 'facebook' },
+{ data: 'twitter', name: 'twitter' },
+{ data: 'instagram', name: 'instagram' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

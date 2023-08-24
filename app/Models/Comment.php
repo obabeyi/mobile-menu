@@ -22,10 +22,14 @@ class Comment extends Model implements HasMedia
         'deleted_at',
     ];
 
+    public const STATUS_SELECT = [
+        'active'  => 'Aktif',
+        'passive' => 'Pasif',
+    ];
+
     public static $searchable = [
         'name',
         'comment_detail',
-        'status',
         'review_score',
     ];
 
