@@ -17,7 +17,7 @@ class FrontendController extends Controller
     {
         $campaigns = Campaign::with('media')->latest('id')->take('3')->get();
         // dd($campaigns);
-        $category = Category::with('media')->orderBy('order', 'asc')->get();
+        $category = Category::with('media')->take(4)->orderBy('order', 'asc')->get();
         $products = Product::with('category')->get();
         $comments = Comment::latest()->take(5)->get();
 
