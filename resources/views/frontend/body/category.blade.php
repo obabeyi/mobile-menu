@@ -10,12 +10,12 @@
             <div class="row">
                 @foreach ($category as $catProduct)
                     {{-- {{ dd($catProduct) }} --}}
-                    <div class="col s6">
+                    <div class="col s6" style="padding: 5px;">
                         <a
                             href="{{ route('category.detail', [\Illuminate\Support\Str::slug($catProduct->name), $catProduct->id]) }}">
                             {{-- @foreach ($catProduct as $category) --}}
                             {{-- {{ dd($catProduct) }} --}}
-                            <div class="content mb-1">
+                            <div class="content ">
                                 <img width="165" height="100"
                                     src="{{ $catProduct->media->first() ? $catProduct->media->first()->getUrl() : '' }}"
                                     alt="">
