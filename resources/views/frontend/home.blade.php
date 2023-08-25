@@ -96,7 +96,7 @@
                         @foreach ($products as $product)
                             @isset($product->category)
                                 @if ($product->category->id == $cat->id)
-                                    <div class="col s6">
+                                    <div class="col s6" style="padding:5px">
                                         <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
                                             <div class="content">
                                                 <img wisth="165" height="165"
