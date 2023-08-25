@@ -16,7 +16,7 @@
                             {{-- @foreach ($catProduct as $category) --}}
                             {{-- {{ dd($catProduct) }} --}}
                             <div class="content">
-                                <img width="165" height="110"
+                                <img width="165" height="100"
                                     src="{{ $catProduct->media->first() ? $catProduct->media->first()->getUrl() : '' }}"
                                     alt="">
                                 <div class="mask"></div>
