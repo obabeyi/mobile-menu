@@ -15,7 +15,7 @@
                                     <img src="{{ $product->media->first()->getUrl() }}" alt="menu">
                                     <div class="text">
                                         <h6>{{ $product->name }}</h6>
-                                        <p class="price">{{ $product->price }}</p>
+                                        <p class="price">{{ $product->price }} ₺</p>
                                     </div>
                                 </div>
                             </a>
