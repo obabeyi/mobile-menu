@@ -92,8 +92,8 @@
             </div>
             @foreach ($category as $cat)
                 <div id="tabs{{ $cat->id }}">
-                    @foreach ($products as $product)
-                        <div class="row">
+                    <div class="row">
+                        @foreach ($products as $product)
                             @isset($product->category)
                                 @if ($product->category->id == $cat->id)
                                     <div class="col s6">
@@ -110,8 +110,9 @@
                                     </div>
                                 @endif
                             @endisset
-                        </div>
-                    @endforeach
+                        @endforeach
+
+                    </div>
 
                 </div>
             @endforeach
