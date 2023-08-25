@@ -93,9 +93,9 @@
             @foreach ($category as $cat)
                 <div id="tabs{{ $cat->id }}">
                     @foreach ($products as $product)
-                        @isset($product->category)
-                            @if ($product->category->id == $cat->id)
-                                <div class="row">
+                        <div class="row">
+                            @isset($product->category)
+                                @if ($product->category->id == $cat->id)
                                     <div class="col s6">
                                         <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
                                             <div class="content">
@@ -108,10 +108,9 @@
                                             </div>
                                         </a>
                                     </div>
-
-                                </div>
-                            @endif
-                        @endisset
+                                @endif
+                            @endisset
+                        </div>
                     @endforeach
 
                 </div>
