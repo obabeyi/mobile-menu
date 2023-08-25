@@ -99,7 +99,8 @@
                                     <div class="col s6">
                                         <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
                                             <div class="content">
-                                                <img src="{{ $product->media->first() ? $product->media->first()->getUrl() : '' }}"
+                                                <img wisth="165" height="165"
+                                                    src="{{ $product->media->first() ? $product->media->first()->getUrl() : '' }}"
                                                     alt="menu">
                                                 <div class="text">
                                                     <h6>{{ $product->name }}</h6>
