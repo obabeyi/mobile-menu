@@ -14,8 +14,8 @@
                                 <div class="content">
                                     <img src="{{ $product->media->first()->getUrl() }}" alt="menu">
                                     <div class="text">
-                                        <h6>Meat Mix Foliage</h6>
-                                        <p class="price">$32</p>
+                                        <h6>{{ $product->name }}</h6>
+                                        <p class="price">{{ $product->price }}</p>
                                     </div>
                                 </div>
                             </a>
