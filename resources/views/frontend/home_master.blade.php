@@ -30,7 +30,7 @@
 
     @include('frontend.body.header')
 
-    @include('frontend.body.sidebar')
+    {{-- @include('frontend.body.sidebar') --}}
     @yield('content')
     @include('frontend.body.footer')
 
