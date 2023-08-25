@@ -26,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
             $settings = Setting::all();
             $view->with('settings', $settings);
         });
+        View::composer('frontend.body.footer', function ($view) {
+            $settings = Setting::all();
+            $view->with('settings', $settings);
+        });
     }
 }
