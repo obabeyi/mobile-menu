@@ -46,7 +46,7 @@
         <div class="container">
             <div class="section-title">
                 <h3>{{ __('frontend.category') }}
-                    <a href="category.html">{{ __('frontend.seeAll') }} <i class="fa fa-angle-right"></i></a>
+                    <a href="{{ route('categories') }}">{{ __('frontend.seeAll') }} <i class="fa fa-angle-right"></i></a>
                 </h3>
             </div>
             <div class="category-show owl-carousel owl-theme">
@@ -123,19 +123,21 @@
     <div class="testimonial segments">
         <div class="container">
             <div class="testimonial-show owl-carousel owl-theme">
-                <div class="content">
-                    <h5>Samuel</h5>
-                    <ul>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut non nisi sapiente vel hic esse!
-                        Dignissimos voluptate, dolorum nesciunt. Beatae.</p>
-                </div>
-                <div class="content">alt="testimonial">
+                @foreach ($comments as $comment)
+                    <div class="content">
+                        <h5>{{ $comment->name }}</h5>
+                        <ul>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                        </ul>
+                        <p>{!! $comment->comment_detail !!}</p>
+                    </div>
+                @endforeach
+
+                {{-- <div class="content">alt="testimonial">
                     <ul>
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
@@ -158,7 +160,7 @@
                     <h5>Bastian</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut non nisi sapiente vel hic esse!
                         Dignissimos voluptate, dolorum nesciunt. Beatae.</p>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

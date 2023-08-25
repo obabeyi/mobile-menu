@@ -19,13 +19,17 @@ class FrontendController extends Controller
         // dd($campaigns);
         $category = Category::with('media')->orderBy('order', 'asc')->get();
         $products = Product::with('category')->get();
-        return view('frontend.home', compact('campaigns', 'category', 'products'));
+        $comments = Comment::latest()->take(5)->get();
+
+        return view('frontend.home', compact('campaigns', 'category', 'products', 'comments'));
         // dd("geldi");
     }
 
     public function categories()
     {
-        return view('frontend.body.category');
+        $product = Product::with('category', 'category.media')->get();
+        $category = Category::with('media')->get();
+        return view('frontend.body.category', compact('category'));
         // dd("geldi");
     }
     public function categoryDetail($slug, $id)
