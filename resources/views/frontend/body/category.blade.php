@@ -15,7 +15,7 @@
                             href="{{ route('category.detail', [\Illuminate\Support\Str::slug($catProduct->name), $catProduct->id]) }}">
                             {{-- @foreach ($catProduct as $category) --}}
                             {{-- {{ dd($catProduct) }} --}}
-                            <div class="content">
+                            <div class="content mt-1">
                                 <img width="165" height="100"
                                     src="{{ $catProduct->media->first() ? $catProduct->media->first()->getUrl() : '' }}"
                                     alt="">
