@@ -78,8 +78,8 @@
                 <div class="col s12">
                     <ul class="tabs">
                         {{-- {{ dd($products) }} --}}
-                        @isset($category)
-                            @foreach ($category as $row)
+                        @isset($categoryMenu)
+                            @foreach ($categoryMenu as $row)
                                 <li class="tab col s3"><a class="active"
                                         href="#tabs{{ $row->id }}">{{ $row->name }}</a></li>
                             @endforeach

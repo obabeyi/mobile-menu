@@ -17,11 +17,12 @@ class FrontendController extends Controller
     {
         $campaigns = Campaign::with('media')->latest('id')->take('3')->get();
         // dd($campaigns);
-        $category = Category::with('media')->take(4)->orderBy('order', 'asc')->get();
+        $category = Category::with('media')->orderBy('order', 'asc')->get();
+        $categoryMenu = Category::with('media')->take(4)->orderBy('order', 'asc')->get();
         $products = Product::with('category')->get();
         $comments = Comment::latest()->take(5)->get();
 
-        return view('frontend.home', compact('campaigns', 'category', 'products', 'comments'));
+        return view('frontend.home', compact('campaigns', 'category', 'products', 'comments', 'categoryMenu'));
         // dd("geldi");
     }
 
