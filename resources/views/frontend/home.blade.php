@@ -93,23 +93,25 @@
             @foreach ($category as $cat)
                 <div id="tabs{{ $cat->id }}">
                     @foreach ($products as $product)
-                        @if ($product->category->id == $cat->id)
-                            <div class="row">
-                                <div class="col s6">
-                                    <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
-                                        <div class="content">
-                                            <img src="{{ $product->media->first() ? $product->media->first()->getUrl() : '' }}"
-                                                alt="menu">
-                                            <div class="text">
-                                                <h6>{{ $product->name }}</h6>
-                                                <p class="price">{{ $product->price }} ₺</p>
+                        @isset($product->category)
+                            @if ($product->category->id == $cat->id)
+                                <div class="row">
+                                    <div class="col s6">
+                                        <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
+                                            <div class="content">
+                                                <img src="{{ $product->media->first() ? $product->media->first()->getUrl() : '' }}"
+                                                    alt="menu">
+                                                <div class="text">
+                                                    <h6>{{ $product->name }}</h6>
+                                                    <p class="price">{{ $product->price }} ₺</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
 
-                            </div>
-                        @endif
+                                </div>
+                            @endif
+                        @endisset
                     @endforeach
 
                 </div>
