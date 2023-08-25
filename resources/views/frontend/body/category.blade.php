@@ -9,7 +9,7 @@
             </div>
             <div class="row">
                 @foreach ($category as $catProduct)
-                    {{ dd($catProduct) }}
+                    {{-- {{ dd($catProduct) }} --}}
                     <div class="col s6">
                         <a href="{{ route('category.detail', [str::slug($catProduct->name), $catProduct->id]) }}">
                             {{-- @foreach ($catProduct as $category) --}}
