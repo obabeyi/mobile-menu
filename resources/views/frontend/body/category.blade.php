@@ -16,7 +16,8 @@
                             {{-- @foreach ($catProduct as $category) --}}
                             {{-- {{ dd($catProduct) }} --}}
                             <div class="content">
-                                <img src="{{ $catProduct->media->first() ? $catProduct->media->first()->getUrl() : '' }}"
+                                <img width="350" height="250"
+                                    src="{{ $catProduct->media->first() ? $catProduct->media->first()->getUrl() : '' }}"
                                     alt="">
                                 <div class="mask"></div>
                                 <div class="wrap-caption">
