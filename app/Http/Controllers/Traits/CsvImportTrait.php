@@ -45,24 +45,8 @@ trait CsvImportTrait
 
             $for_insert = array_chunk($insert, 100);
 
-            // foreach ($for_insert as $insert_item) {
-            //     $model::insert($insert_item);
-            // }
             foreach ($for_insert as $insert_item) {
-                // dd($insert_item);
-                foreach ($insert_item as $item) {
-                    // Burada 'product_id' örneğini kullandım. Eğer bu sizin için benzersiz bir alan değilse,
-                    // doğru bir benzersiz alanı (örneğin, SKU veya ürün adı gibi) seçmelisiniz.
-                    $existingProduct = $model::where('name', $item['name'])->first();
-
-                    if ($existingProduct) {
-                        // Ürün zaten varsa güncelle
-                        $existingProduct->update($item);
-                    } else {
-                        // Ürün yoksa yeni bir ürün olarak ekle
-                        $model::create($item);  // create metodu bir model örneğini oluşturur ve veritabanına kaydeder
-                    }
-                }
+                $model::insert($insert_item);
             }
 
             $rows  = count($insert);

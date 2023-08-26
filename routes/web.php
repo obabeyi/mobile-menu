@@ -1,9 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\CommentsController;
-use App\Http\Controllers\Frontend\FrontendController;
+Route::redirect('/', '/login');
+Route::get('/home', function () {
+    if (session('status')) {
+        return redirect()->route('admin.home')->with('status', session('status'));
+    }
 
-
+    return redirect()->route('admin.home');
+});
 
 Auth::routes(['register' => false]);
 
@@ -71,7 +75,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('content-pages', 'ContentPageController');
 
     // Settings
-    // Settings
     Route::delete('settings/destroy', 'SettingsController@massDestroy')->name('settings.massDestroy');
     Route::post('settings/media', 'SettingsController@storeMedia')->name('settings.storeMedia');
     Route::post('settings/ckmedia', 'SettingsController@storeCKEditorImages')->name('settings.storeCKEditorImages');
@@ -88,9 +91,3 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
     }
 });
-route::get('/', [FrontendController::class, 'index']);
-route::get('/categories', [FrontendController::class, 'categories'])->name('categories');
-route::post('/send-comment', [CommentsController::class, 'store'])->name('send.comment');
-
-route::get('/category/{slug}/{id}', [FrontendController::class, 'categoryDetail'])->name('category.detail');
-route::get('/product/{slug}/{id}', [FrontendController::class, 'productDetail'])->name('product.detail');
