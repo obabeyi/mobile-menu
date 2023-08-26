@@ -8,10 +8,18 @@
 
                  </div>
              </div>
+             {{-- {{ dd($settings) }} --}}
              <div class="col s6">
                  <div class="content-center">
                      <a href="{{ url('/') }}">
-                         <h1>Aaem</h1>
+                         @foreach ($settings as $setting)
+                             @if ($setting->firm_logo)
+                                 <img src="{{ $setting->media->first()->getUrl() }}" alt="">
+                             @else
+                                 <h1>{{ $setting->firm_name }}</h1>
+                             @endif
+                         @endforeach
+
                      </a>
                  </div>
              </div>

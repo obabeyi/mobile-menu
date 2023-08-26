@@ -3,80 +3,33 @@
     <!-- category page -->
     <div class="category-page segments-page">
         <div class="container">
+            {{-- {{ dd($category) }} --}}
             <div class="wrap-title">
-                <h3>Category</h3>
+                <h3>Kategoriler</h3>
             </div>
             <div class="row">
-                <div class="col s6">
-                    <a href="category-details.html">
-                        <div class="content">
-                            <img src="{{ asset('frontend/images/category1.jpg') }}" alt="">
-                            <div class="mask"></div>
-                            <div class="wrap-caption">
-                                <h4>Food</h4>
+                @foreach ($category as $catProduct)
+                    {{-- {{ dd($catProduct) }} --}}
+                    <div class="col s6" style="padding: 5px;">
+                        <a
+                            href="{{ route('category.detail', [\Illuminate\Support\Str::slug($catProduct->name), $catProduct->id]) }}">
+                            {{-- @foreach ($catProduct as $category) --}}
+                            {{-- {{ dd($catProduct) }} --}}
+                            <div class="content ">
+                                <img width="165" height="100"
+                                    src="{{ $catProduct->media->first() ? $catProduct->media->first()->getUrl() : '' }}"
+                                    alt="">
+                                <div class="mask"></div>
+                                <div class="wrap-caption">
+                                    <h4>{{ $catProduct->name }}</h4>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col s6">
-                    <a href="category-details.html">
-                        <div class="content">
-                            <img src="images/category2.jpg" alt="">
-                            <div class="mask"></div>
-                            <div class="wrap-caption">
-                                <h4>Snack</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s6">
-                    <a href="category-details.html">
-                        <div class="content">
-                            <img src="images/category3.jpg" alt="">
-                            <div class="mask"></div>
-                            <div class="wrap-caption">
-                                <h4>Drink</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col s6">
-                    <a href="category-details.html">
-                        <div class="content">
-                            <img src="images/category4.jpg" alt="">
-                            <div class="mask"></div>
-                            <div class="wrap-caption">
-                                <h4>Dessert</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s6">
-                    <a href="category-details.html">
-                        <div class="content">
-                            <img src="images/category5.jpg" alt="">
-                            <div class="mask"></div>
-                            <div class="wrap-caption">
-                                <h4>Breakfast</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col s6">
-                    <a href="category-details.html">
-                        <div class="content">
-                            <img src="images/category6.jpg" alt="">
-                            <div class="mask"></div>
-                            <div class="wrap-caption">
-                                <h4>Dinner</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                            {{-- @endforeach --}}
+
+                        </a>
+                    </div>
+                @endforeach
+
             </div>
         </div>
     </div>

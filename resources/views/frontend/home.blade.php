@@ -46,7 +46,7 @@
         <div class="container">
             <div class="section-title">
                 <h3>{{ __('frontend.category') }}
-                    <a href="category.html">{{ __('frontend.seeAll') }} <i class="fa fa-angle-right"></i></a>
+                    <a href="{{ route('categories') }}">{{ __('frontend.seeAll') }} <i class="fa fa-angle-right"></i></a>
                 </h3>
             </div>
             <div class="category-show owl-carousel owl-theme">
@@ -78,8 +78,8 @@
                 <div class="col s12">
                     <ul class="tabs">
                         {{-- {{ dd($products) }} --}}
-                        @isset($category)
-                            @foreach ($category as $row)
+                        @isset($categoryMenu)
+                            @foreach ($categoryMenu as $row)
                                 <li class="tab col s3"><a class="active"
                                         href="#tabs{{ $row->id }}">{{ $row->name }}</a></li>
                             @endforeach
@@ -92,25 +92,28 @@
             </div>
             @foreach ($category as $cat)
                 <div id="tabs{{ $cat->id }}">
-                    @foreach ($products as $product)
-                        @if ($product->category->id == $cat->id)
-                            <div class="row">
-                                <div class="col s6">
-                                    <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
-                                        <div class="content">
-                                            <img src="{{ $product->media->first() ? $product->media->first()->getUrl() : '' }}"
-                                                alt="menu">
-                                            <div class="text">
-                                                <h6>{{ $product->name }}</h6>
-                                                <p class="price">{{ $product->price }} ₺</p>
+                    <div class="row">
+                        @foreach ($products as $product)
+                            @isset($product->category)
+                                @if ($product->category->id == $cat->id)
+                                    <div class="col s6" style="padding:5px">
+                                        <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
+                                            <div class="content">
+                                                <img wisth="165" height="165"
+                                                    src="{{ $product->media->first() ? $product->media->first()->getUrl() : '' }}"
+                                                    alt="menu">
+                                                <div class="text">
+                                                    <h6>{{ $product->name }}</h6>
+                                                    <p class="price">{{ $product->price }} ₺</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+                                @endif
+                            @endisset
+                        @endforeach
 
-                            </div>
-                        @endif
-                    @endforeach
+                    </div>
 
                 </div>
             @endforeach
@@ -123,19 +126,21 @@
     <div class="testimonial segments">
         <div class="container">
             <div class="testimonial-show owl-carousel owl-theme">
-                <div class="content">
-                    <h5>Samuel</h5>
-                    <ul>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut non nisi sapiente vel hic esse!
-                        Dignissimos voluptate, dolorum nesciunt. Beatae.</p>
-                </div>
-                <div class="content">alt="testimonial">
+                @foreach ($comments as $comment)
+                    <div class="content">
+                        <h5>{{ $comment->name }}</h5>
+                        <ul>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                        </ul>
+                        <p>{!! $comment->comment_detail !!}</p>
+                    </div>
+                @endforeach
+
+                {{-- <div class="content">alt="testimonial">
                     <ul>
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
@@ -158,7 +163,7 @@
                     <h5>Bastian</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut non nisi sapiente vel hic esse!
                         Dignissimos voluptate, dolorum nesciunt. Beatae.</p>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

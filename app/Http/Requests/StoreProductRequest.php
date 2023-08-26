@@ -30,6 +30,8 @@ class StoreProductRequest extends FormRequest
             'name' => [
                 'string',
                 'required',
+                'unique:products',
+
             ],
             'slug' => [
                 'string',
