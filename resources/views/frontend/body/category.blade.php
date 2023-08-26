@@ -17,7 +17,7 @@
                             {{-- {{ dd($catProduct) }} --}}
                             <div class="content ">
                                 <img width="165" height="100"
-                                    src="{{ $catProduct->media->first() ? $catProduct->media->first()->getUrl() : '' }}"
+                                    src="{{ $catProduct->media ? $catProduct->media->first()->getUrl() : '' }}"
                                     alt="">
                                 <div class="mask"></div>
                                 <div class="wrap-caption">
