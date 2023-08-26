@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('frontend.body.header', function ($view) {
-            $settings = Setting::all();
+            $settings = Setting::with('media')->get();
             $view->with('settings', $settings);
         });
         View::composer('frontend.body.footer', function ($view) {

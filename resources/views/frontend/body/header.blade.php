@@ -13,7 +13,11 @@
                  <div class="content-center">
                      <a href="{{ url('/') }}">
                          @foreach ($settings as $setting)
-                             <h1>{{ $setting->firm_name }}</h1>
+                             @if ($setting->firm_logo)
+                                 <img src="{{ $setting->media->first()->getUrl() }}" alt="">
+                             @else
+                                 <h1>{{ $setting->firm_name }}</h1>
+                             @endif
                          @endforeach
 
                      </a>
