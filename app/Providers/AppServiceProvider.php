@@ -2,10 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Setting;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
-
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,19 +17,8 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot()
+    public function boot(): void
     {
-        View::composer('frontend.body.header', function ($view) {
-            $settings = Setting::with('media')->get();
-            $view->with('settings', $settings);
-        });
-        View::composer('frontend.body.footer', function ($view) {
-            $settings = Setting::all();
-            $view->with('settings', $settings);
-        });
-        View::composer('frontend.home_master', function ($view) {
-            $settings = Setting::all();
-            $view->with('settings', $settings);
-        });
+        //
     }
 }

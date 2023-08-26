@@ -62,12 +62,12 @@ class ProductController extends Controller
                 return $row->slug ? $row->slug : '';
             });
             $table->editColumn('image', function ($row) {
-                if (!$row->image) {
+                if (! $row->image) {
                     return '';
                 }
                 $links = [];
                 foreach ($row->image as $media) {
-                    $links[] = '<a href="' . $media->getUrl() . '" target="_blank"><img src="' . $media->getUrl() . '" width="50px" height="50px"></a>';
+                    $links[] = '<a href="' . $media->getUrl() . '" target="_blank"><img src="' . $media->getUrl('thumb') . '" width="50px" height="50px"></a>';
                 }
 
                 return implode(' ', $links);
@@ -140,14 +140,14 @@ class ProductController extends Controller
 
         if (count($product->image) > 0) {
             foreach ($product->image as $media) {
-                if (!in_array($media->file_name, $request->input('image', []))) {
+                if (! in_array($media->file_name, $request->input('image', []))) {
                     $media->delete();
                 }
             }
         }
         $media = $product->image->pluck('file_name')->toArray();
         foreach ($request->input('image', []) as $file) {
-            if (count($media) === 0 || !in_array($file, $media)) {
+            if (count($media) === 0 || ! in_array($file, $media)) {
                 $product->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
             }
         }
