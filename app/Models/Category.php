@@ -74,4 +74,30 @@ class Category extends Model implements HasMedia
 
         return $file;
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        Category::creating(function ($model) {
+            $maxOrder = Category::max('order') ?? 0;
+            $model->order = $maxOrder + 1;
+        });
+
+        Category::updated(function ($category) {
+            // Burada $category, güncellenen kategori modelini temsil eder
+            $changedCategoryId = $category->id;
+            $newOrder = $category->order;
+
+            $categoriesToUpdate = Category::where('order', '>=', $newOrder)
+                ->where('id', '!=', $changedCategoryId) // güncellenen kategoriyi hariç tutuyoruz
+                ->orderBy('order', 'asc')
+                ->get();
+
+            $currentOrder = $newOrder + 1; // Güncellenen kategori için sırayı koruyoruz, diğerlerini 1 artırıyoruz
+            foreach ($categoriesToUpdate as $cat) {
+                $cat->order = $currentOrder++;
+                $cat->save();
+            }
+        });
+    }
 }

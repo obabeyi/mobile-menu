@@ -1,13 +1,6 @@
 <?php
 
-Route::redirect('/', '/login');
-Route::get('/home', function () {
-    if (session('status')) {
-        return redirect()->route('admin.home')->with('status', session('status'));
-    }
-
-    return redirect()->route('admin.home');
-});
+use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CommentsController;
 use App\Http\Controllers\Frontend\FrontendController;
 
@@ -40,6 +33,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('categories/media', 'CategoriesController@storeMedia')->name('categories.storeMedia');
     Route::post('categories/ckmedia', 'CategoriesController@storeCKEditorImages')->name('categories.storeCKEditorImages');
     Route::resource('categories', 'CategoriesController');
+    Route::post('categories/reorder', [CategoriesController::class, 'reorder'])->name('categories.reorder');
 
     // Pages
     Route::delete('pages/destroy', 'PagesController@massDestroy')->name('pages.massDestroy');

@@ -60,7 +60,7 @@ class CategoriesController extends Controller
         $category->update($request->all());
 
         if ($request->input('photo', false)) {
-            if (! $category->photo || $request->input('photo') !== $category->photo->file_name) {
+            if (!$category->photo || $request->input('photo') !== $category->photo->file_name) {
                 if ($category->photo) {
                     $category->photo->delete();
                 }
@@ -112,5 +112,15 @@ class CategoriesController extends Controller
         $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
+    }
+    public function reorder(Request $request)
+    {
+        foreach ($request->input('rows', []) as $row) {
+            Category::find($row['id'])->update([
+                'order' => $row['order']
+            ]);
+        }
+
+        return response()->json(['success' => true]);
     }
 }
