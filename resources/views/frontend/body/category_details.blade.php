@@ -12,7 +12,7 @@
                         <div class="col s6">
                             <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
                                 <div class="content">
-                                    <img src="{{ $product->media->first()->getUrl() }}" alt="menu">
+                                    <img src="{{ $product->media ? $product->media->first()->getUrl() : '' }}" alt="menu">
                                     <div class="text">
                                         <h6>{{ $product->name }}</h6>
                                         <p class="price">{{ $product->price }} ₺</p>
