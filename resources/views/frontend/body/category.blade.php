@@ -10,6 +10,18 @@
             <div class="row">
                 @foreach ($category as $catProduct)
                     {{-- {{ dd($catProduct) }} --}}
+                    {{-- @php
+                        $mediaUrl = $catProduct->media->first()?->getUrl();
+
+                        $imageExists = $mediaUrl && file_exists(public_path(parse_url($mediaUrl, PHP_URL_PATH)));
+
+                        $src = $imageExists
+                            ? $mediaUrl
+                            : $settings[0]
+                                    ->getMedia('default_image')
+                                    ->first()
+                                    ?->getUrl() ?? (isset($settings[0]) ? $settings[0]->getMedia('default_image')->first() : null);
+                    @endphp --}}
                     <div class="col s6" style="padding: 5px;">
                         <a
                             href="{{ route('category.detail', [\Illuminate\Support\Str::slug($catProduct->name), $catProduct->id]) }}">

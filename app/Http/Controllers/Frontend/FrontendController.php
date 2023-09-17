@@ -7,6 +7,7 @@ use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -183,8 +184,10 @@ class FrontendController extends Controller
         } else {
             $products = [];
         }
+        $settings = Setting::all();
+
         // dd($products);
-        return view('frontend.body.category_details', compact('products'));
+        return view('frontend.body.category_details', compact('products', 'settings'));
         // dd("geldi");
     }
     public function productDetail($slug, $id)
@@ -193,8 +196,8 @@ class FrontendController extends Controller
         $products = Product::with('category', 'media')->where('id', $id)->get();
         // dd($products);
         $comments = Comment::latest()->get();
-
-        return view('frontend.body.product_details', compact('products', 'comments'));
+        $settings = Setting::all();
+        return view('frontend.body.product_details', compact('products', 'comments', 'settings'));
         // dd("geldi");
     }
 }

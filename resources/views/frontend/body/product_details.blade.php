@@ -6,11 +6,23 @@
 
             @foreach ($products as $productKey => $product)
                 @foreach ($product->media as $mediaKey => $image)
+                    @php
+                        $mediaUrl = $product->media->first()?->getUrl();
+                        
+                        $imageExists = $mediaUrl && file_exists(public_path(parse_url($mediaUrl, PHP_URL_PATH)));
+                        
+                        $src = $imageExists
+                            ? $mediaUrl
+                            : $settings[0]
+                                    ->getMedia('default_image')
+                                    ->first()
+                                    ?->getUrl() ?? (isset($settings[0]) ? $settings[0]->getMedia('default_image')->first() : null);
+                    @endphp
                     <div id="tabs{{ $productKey }}_{{ $mediaKey }}">
                         <div class="row">
                             <div class="col s12">
                                 <div class="content">
-                                    <img src="{{ $image->getUrl() }}" alt="menu">
+                                    <img src="{{ $src }}" alt="menu">
                                 </div>
                             </div>
                         </div>

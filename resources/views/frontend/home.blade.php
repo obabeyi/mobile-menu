@@ -99,12 +99,22 @@
                             {{-- {{ dd($product->media->first()->getUrl()) }} --}}
                             @isset($product->category)
                                 @if ($product->category->id == $cat->id)
+                                    @php
+                                        $mediaUrl = $product->media->first()?->getUrl();
+                                        
+                                        $imageExists = $mediaUrl && file_exists(public_path(parse_url($mediaUrl, PHP_URL_PATH)));
+                                        
+                                        $src = $imageExists
+                                            ? $mediaUrl
+                                            : $settings[0]
+                                                    ->getMedia('default_image')
+                                                    ->first()
+                                                    ?->getUrl() ?? (isset($settings[0]) ? $settings[0]->getMedia('default_image')->first() : null);
+                                    @endphp
                                     <div class="col s6" style="padding:5px">
                                         <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
                                             <div class="content">
-                                                <img width="165" height="165"
-                                                    src="{{ optional($product->media->first() ?? (isset($settings[0]) ? $settings[0]->getMedia('default_image')->first() : null))->getUrl() }}"
-                                                    alt="menu">
+                                                <img width="165" height="165" src="{{ $src }}" alt="menu">
 
 
                                                 <div class="text">
