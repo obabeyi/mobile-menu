@@ -208,7 +208,13 @@
                     },
                     {
                         data: 'description',
-                        name: 'description'
+                        name: 'description',
+                        render: function(data, type, row) {
+                            var div = document.createElement("div");
+                            div.innerHTML = data;
+                            return div.textContent || div.innerText || "";
+                        }
+
                     },
                     {
                         data: 'category_name',
