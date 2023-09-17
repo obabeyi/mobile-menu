@@ -9,7 +9,9 @@
                     <div class="slide-show owl-carousel owl-theme">
                         <div class="content">
                             <div class="mask"></div>
-                            <img src="{{ $campaign->media->first()->getUrl() }}" alt="">
+                            <img src="{{ $campaign->media->first()? $campaign->media->first()->getUrl(): (isset($settings[0])? $settings[0]->getMedia('default_image')->first()?->getUrl(): '') }}"
+                                alt="Campaign Image">
+
                             <div class="slide-caption">
                                 <h2>{{ $campaign->name }}</h2>
                                 <p>{{ $campaign->description }}</p>
@@ -55,7 +57,7 @@
                         {{-- {{ dd($row->id) }} --}}
                         <a href="{{ route('category.detail', [Str::slug($row->name), $row->id]) }}">
                             <div class="content c-first"
-                                style="background:url('{{ $row->media->first() ? $row->media->first()->getUrl() : '' }}') ">
+                                style="background:url('{{ $row->media->first()? $row->media->first()->getUrl(): (isset($settings[0])? $settings[0]->getMedia('default_image')->first()?->getUrl(): '') }}') ">
                                 <div class="mask"></div>
                                 <h4>{{ $row->name }}</h4>
                             </div>
