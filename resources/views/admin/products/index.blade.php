@@ -13,7 +13,11 @@
                     'model' => 'Product',
                     'route' => 'admin.products.parseCsvImport',
                 ])
+                <a class="btn btn-info" href="{{ route('admin.products.import') }}">
+                    CSV'den veri indir
+                </a>
             </div>
+
         </div>
     @endcan
     <div class="card">
