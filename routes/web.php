@@ -79,7 +79,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('settings/ckmedia', 'SettingsController@storeCKEditorImages')->name('settings.storeCKEditorImages');
     Route::resource('settings', 'SettingsController');
 
-    Route::get('products-export', 'ProductExportController@export')->name('products.import');
+    Route::get('products-export', 'ProductExportController@export')->name('products.export');
+    Route::get('products-import-file', 'ProductImportController@show')->name('products.import.file');
+    Route::post('products-import', 'ProductImportController@import')->name('products.import');
 
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');

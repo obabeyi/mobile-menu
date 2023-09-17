@@ -6,9 +6,7 @@ use App\Models\Product;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
-
-class ProductsExport implements FromCollection, WithHeadings, WithCustomCsvSettings
+class ProductsExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
@@ -20,15 +18,6 @@ class ProductsExport implements FromCollection, WithHeadings, WithCustomCsvSetti
         return [
             'Ürün İsmi',
             'Ürün Fiyatı',
-        ];
-    }
-    public function getCsvSettings(): array
-    {
-        return [
-            'delimiter' => ';',       // Noktalı virgül kullanarak sütunları ayırma
-            'enclosure' => '"',
-            'line_ending' => "\r\n",
-            'use_bom' => true,        // UTF-8 BOM kullanarak karakter kodlama sorunlarını önleme
         ];
     }
 }

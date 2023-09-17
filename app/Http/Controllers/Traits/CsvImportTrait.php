@@ -22,8 +22,19 @@ trait CsvImportTrait
 
             $modelName = $request->input('modelName', false);
             $model     = "App\Models\\" . $modelName;
+            // Dosyanın içeriğini okuyun.
+            $originalContent = file_get_contents($path);
 
-            $reader = new SpreadsheetReader($path);
+            // İçeriği Windows-1252'den UTF-8'e dönüştürün.
+            $convertedContent = mb_convert_encoding($originalContent, 'UTF-8', 'Windows-1252');
+
+            // Yeni bir dosya olarak veya aynı dosya üzerine içeriği yazın.
+            $convertedPath = storage_path('app/csv_import/converted_' . $filename);
+            file_put_contents($convertedPath, $convertedContent);
+
+            // Dönüştürülmüş dosyayı SpreadsheetReader ile okuyun.
+            $reader = new SpreadsheetReader($convertedPath);
+            // $reader = new SpreadsheetReader($path);
             $insert = [];
 
             foreach ($reader as $key => $row) {
@@ -48,23 +59,34 @@ trait CsvImportTrait
             // foreach ($for_insert as $insert_item) {
             //     $model::insert($insert_item);
             // }
+            // foreach ($for_insert as $insert_item) {
+            //     // dd($insert_item);
+            //     foreach ($insert_item as $item) {
+            //         // Burada 'product_id' örneğini kullandım. Eğer bu sizin için benzersiz bir alan değilse,
+            //         // doğru bir benzersiz alanı (örneğin, SKU veya ürün adı gibi) seçmelisiniz.
+            //         $existingProduct = $model::where('name', $item['name'])->first();
+
+            //         if ($existingProduct) {
+            //             // Ürün zaten varsa güncelle
+            //             $existingProduct->update($item);
+            //         } else {
+            //             // Ürün yoksa yeni bir ürün olarak ekle
+            //             $model::create($item);  // create metodu bir model örneğini oluşturur ve veritabanına kaydeder
+            //         }
+            //     }
+            // }
             foreach ($for_insert as $insert_item) {
-                // dd($insert_item);
                 foreach ($insert_item as $item) {
-                    // Burada 'product_id' örneğini kullandım. Eğer bu sizin için benzersiz bir alan değilse,
-                    // doğru bir benzersiz alanı (örneğin, SKU veya ürün adı gibi) seçmelisiniz.
                     $existingProduct = $model::where('name', $item['name'])->first();
 
                     if ($existingProduct) {
-                        // Ürün zaten varsa güncelle
-                        $existingProduct->update($item);
+                        // Sadece 'price' bilgisini güncelle
+                        $existingProduct->update(['price' => $item['price']]);
                     } else {
-                        // Ürün yoksa yeni bir ürün olarak ekle
-                        $model::create($item);  // create metodu bir model örneğini oluşturur ve veritabanına kaydeder
+                        $model::create($item);
                     }
                 }
             }
-
             $rows  = count($insert);
             $table = Str::plural($modelName);
 
@@ -88,7 +110,18 @@ trait CsvImportTrait
         $path      = $file->path();
         $hasHeader = $request->input('header', false) ? true : false;
 
-        $reader  = new SpreadsheetReader($path);
+        // Dosyanın içeriğini okuyun.
+        $originalContent = file_get_contents($path);
+
+        // İçeriği Windows-1252'den UTF-8'e dönüştürün.
+        $convertedContent = mb_convert_encoding($originalContent, 'UTF-8', 'Windows-1252');
+
+        // Yeni bir dosya olarak veya aynı dosya üzerine içeriği yazın.
+        $convertedPath = storage_path('app/csv_import/converted_' . $filename);
+        file_put_contents($convertedPath, $convertedContent);
+
+        // Dönüştürülmüş dosyayı SpreadsheetReader ile okuyun.
+        $reader = new SpreadsheetReader($convertedPath);
         $headers = $reader->current();
         $lines   = [];
 

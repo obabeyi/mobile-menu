@@ -6,14 +6,17 @@
                 <a class="btn btn-success" href="{{ route('admin.products.create') }}">
                     {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
                 </a>
-                <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{-- <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                     {{ trans('global.app_csvImport') }}
-                </button>
-                @include('csvImport.modal', [
+                </button> --}}
+                <a class="btn btn-warning" href="{{ route('admin.products.import.file') }}">
+                    Excel Dosya Yükle
+                </a>
+                {{-- @include('admin.products.productsImport', [
                     'model' => 'Product',
-                    'route' => 'admin.products.parseCsvImport',
-                ])
-                <a class="btn btn-info" href="{{ route('admin.products.import') }}">
+                    'route' => 'admin.products.import.file',
+                ]) --}}
+                <a class="btn btn-info" href="{{ route('admin.products.export') }}">
                     CSV'den veri indir
                 </a>
             </div>
