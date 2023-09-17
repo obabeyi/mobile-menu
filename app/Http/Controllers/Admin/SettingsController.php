@@ -116,7 +116,9 @@ class SettingsController extends Controller
         if ($request->input('firm_logo', false)) {
             $setting->addMedia(storage_path('tmp/uploads/' . basename($request->input('firm_logo'))))->toMediaCollection('firm_logo');
         }
-
+        if ($request->input('default_image', false)) {
+            $setting->addMedia(storage_path('tmp/uploads/' . basename($request->input('default_image'))))->toMediaCollection('default_image');
+        }
         if ($request->input('favicon', false)) {
             $setting->addMedia(storage_path('tmp/uploads/' . basename($request->input('favicon'))))->toMediaCollection('favicon');
         }
@@ -140,7 +142,7 @@ class SettingsController extends Controller
         $setting->update($request->all());
 
         if ($request->input('firm_logo', false)) {
-            if (! $setting->firm_logo || $request->input('firm_logo') !== $setting->firm_logo->file_name) {
+            if (!$setting->firm_logo || $request->input('firm_logo') !== $setting->firm_logo->file_name) {
                 if ($setting->firm_logo) {
                     $setting->firm_logo->delete();
                 }
@@ -149,9 +151,18 @@ class SettingsController extends Controller
         } elseif ($setting->firm_logo) {
             $setting->firm_logo->delete();
         }
-
+        if ($request->input('default_image', false)) {
+            if (!$setting->default_image || $request->input('default_image') !== $setting->default_image->file_name) {
+                if ($setting->default_image) {
+                    $setting->default_image->delete();
+                }
+                $setting->addMedia(storage_path('tmp/uploads/' . basename($request->input('default_image'))))->toMediaCollection('default_image');
+            }
+        } elseif ($setting->default_image) {
+            $setting->default_image->delete();
+        }
         if ($request->input('favicon', false)) {
-            if (! $setting->favicon || $request->input('favicon') !== $setting->favicon->file_name) {
+            if (!$setting->favicon || $request->input('favicon') !== $setting->favicon->file_name) {
                 if ($setting->favicon) {
                     $setting->favicon->delete();
                 }

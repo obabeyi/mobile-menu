@@ -23,7 +23,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        // $query = Product::with(['category'])->get();
+        // dd($query[0]);
         if ($request->ajax()) {
             $query = Product::with(['category'])->select(sprintf('%s.*', (new Product)->table));
             $table = Datatables::of($query);
@@ -86,6 +87,11 @@ class ProductController extends Controller
                 return $row->price ? $row->price : '';
             });
             $table->editColumn('status', function ($row) {
+                if ($row->status == 1) {
+                    $row->status = "Active";
+                } else {
+                    $row->status = "Passive";
+                }
                 return $row->status ? Product::STATUS_SELECT[$row->status] : '';
             });
 

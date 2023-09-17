@@ -10,11 +10,11 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('product_code')->unique();
-            $table->string('barcode')->unique();
+            $table->string('product_code')->nullable();
+            $table->string('barcode')->nullable();
             $table->string('name');
             $table->string('slug')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->time('prepare_time')->nullable();
             $table->float('price', 15, 2)->nullable();
             $table->string('status')->nullable();

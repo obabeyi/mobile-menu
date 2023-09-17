@@ -9,6 +9,7 @@
                 </div>
                 <div class="row">
                     @foreach ($products as $product)
+                        {{-- {{ dump($product->media->first()) }} --}}
                         <div class="col s6">
                             <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
                                 <div class="content">

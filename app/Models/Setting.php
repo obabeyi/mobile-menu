@@ -19,6 +19,7 @@ class Setting extends Model implements HasMedia
 
     protected $appends = [
         'firm_logo',
+        'default_image',
         'favicon',
     ];
 
@@ -64,7 +65,17 @@ class Setting extends Model implements HasMedia
 
         return $file;
     }
+    public function getDefaultImageAttribute()
+    {
+        $file = $this->getMedia('default_image')->last();
+        if ($file) {
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
+            $file->preview   = $file->getUrl('preview');
+        }
 
+        return $file;
+    }
     public function getFaviconAttribute()
     {
         $file = $this->getMedia('favicon')->last();

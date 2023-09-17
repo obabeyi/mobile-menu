@@ -77,27 +77,36 @@ class Category extends Model implements HasMedia
     protected static function boot()
     {
         parent::boot();
-
         Category::creating(function ($model) {
             $maxOrder = Category::max('order') ?? 0;
             $model->order = $maxOrder + 1;
-        });
+            // $model->order = Category::max('order') + 1;
+            Category::updated(function ($category) {
+                // Burada $category, güncellenen kategori modelini temsil eder
+                $changedCategoryId = $category->id;
+                $newOrder = $category->order;
 
-        Category::updated(function ($category) {
-            // Burada $category, güncellenen kategori modelini temsil eder
-            $changedCategoryId = $category->id;
-            $newOrder = $category->order;
+                // Eğer tüm kategorilerin order değeri null'sa
+                if (Category::whereNotNull('order')->count() == 0) {
+                    $allCategories = Category::orderBy('id', 'asc')->get();
+                    $currentOrder = 1; // Sıralamayı 1'den başlatıyoruz
+                    foreach ($allCategories as $cat) {
+                        $cat->order = $currentOrder++;
+                        $cat->save();
+                    }
+                } else {
+                    $categoriesToUpdate = Category::where('order', '>=', $newOrder)
+                        ->where('id', '!=', $changedCategoryId) // güncellenen kategoriyi hariç tutuyoruz
+                        ->orderBy('order', 'asc')
+                        ->get();
 
-            $categoriesToUpdate = Category::where('order', '>=', $newOrder)
-                ->where('id', '!=', $changedCategoryId) // güncellenen kategoriyi hariç tutuyoruz
-                ->orderBy('order', 'asc')
-                ->get();
-
-            $currentOrder = $newOrder + 1; // Güncellenen kategori için sırayı koruyoruz, diğerlerini 1 artırıyoruz
-            foreach ($categoriesToUpdate as $cat) {
-                $cat->order = $currentOrder++;
-                $cat->save();
-            }
+                    $currentOrder = $newOrder + 1; // Güncellenen kategori için sırayı koruyoruz, diğerlerini 1 artırıyoruz
+                    foreach ($categoriesToUpdate as $cat) {
+                        $cat->order = $currentOrder++;
+                        $cat->save();
+                    }
+                }
+            });
         });
     }
 }

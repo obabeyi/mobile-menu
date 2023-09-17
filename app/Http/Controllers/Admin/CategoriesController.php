@@ -117,7 +117,7 @@ class CategoriesController extends Controller
     {
         foreach ($request->input('rows', []) as $row) {
             Category::find($row['id'])->update([
-                'order' => $row['order']
+                'order' => $row['id']
             ]);
         }
 

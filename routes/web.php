@@ -94,5 +94,7 @@ route::get('/', [FrontendController::class, 'index']);
 route::get('/categories', [FrontendController::class, 'categories'])->name('categories');
 route::post('/send-comment', [CommentsController::class, 'store'])->name('send.comment');
 
+route::get('/db-trans', [FrontendController::class, 'DBTrans']);
+
 route::get('/category/{slug}/{id}', [FrontendController::class, 'categoryDetail'])->name('category.detail');
 route::get('/product/{slug}/{id}', [FrontendController::class, 'productDetail'])->name('product.detail');

@@ -90,18 +90,23 @@
                     </ul>
                 </div>
             </div>
+            {{-- {{ optional($settings[0]->getMedia('default_image')->first())->getUrl() }} --}}
+
             @foreach ($category as $cat)
                 <div id="tabs{{ $cat->id }}">
                     <div class="row">
                         @foreach ($products as $product)
+                            {{-- {{ dd($product->media->first()->getUrl()) }} --}}
                             @isset($product->category)
                                 @if ($product->category->id == $cat->id)
                                     <div class="col s6" style="padding:5px">
                                         <a href="{{ route('product.detail', [Str::slug($product->name), $product->id]) }}">
                                             <div class="content">
-                                                <img wisth="165" height="165"
-                                                    src="{{ $product->media->first() ? $product->media->first()->getUrl() : '' }}"
+                                                <img width="165" height="165"
+                                                    src="{{ optional($product->media->first() ?? (isset($settings[0]) ? $settings[0]->getMedia('default_image')->first() : null))->getUrl() }}"
                                                     alt="menu">
+
+
                                                 <div class="text">
                                                     <h6>{{ $product->name }}</h6>
                                                     <p class="price">{{ $product->price }} ₺</p>
