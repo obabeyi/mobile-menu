@@ -17,7 +17,7 @@
                     'route' => 'admin.products.import.file',
                 ]) --}}
                 <a class="btn btn-info" href="{{ route('admin.products.export') }}">
-                    CSV'den veri indir
+                    Ürün-Excel indir
                 </a>
             </div>
 
