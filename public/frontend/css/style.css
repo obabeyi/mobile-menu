@@ -460,7 +460,7 @@ p.date i {
 }
 
 .category .content h4 {
-    font-family: 'Berkshire Swash', cursive;
+    /* font-family: 'Berkshire Swash', cursive; */
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
