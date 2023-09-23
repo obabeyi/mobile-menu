@@ -95,7 +95,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
     }
 });
-route::get('/', [FrontendController::class, 'index']);
+route::get('/', [FrontendController::class, 'categories']);
 route::get('/categories', [FrontendController::class, 'categories'])->name('categories');
 route::post('/send-comment', [CommentsController::class, 'store'])->name('send.comment');
 
