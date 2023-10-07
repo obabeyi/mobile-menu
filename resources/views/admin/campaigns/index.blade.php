@@ -13,60 +13,6 @@
         <div class="card-header">
             {{ trans('cruds.campaign.title_singular') }} {{ trans('global.list') }}
         </div>
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.campaign.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.campaign.fields.name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.campaign.fields.campain_photo') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.campaign.fields.order') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.campaign.fields.status') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.campaign.fields.description') }}
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search" strict="true">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach(App\Models\Campaign::STATUS_SELECT as $key => $item)
-                                <option value="{{ $key }}">{{ $item }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </thead>
-        </table>
         <div class="card-body">
             {{-- <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Campaign">
                 <thead>
