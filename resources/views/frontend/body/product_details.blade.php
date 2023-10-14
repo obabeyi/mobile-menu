@@ -8,9 +8,9 @@
                 @foreach ($product->media as $mediaKey => $image)
                     @php
                         $mediaUrl = $product->media->first()?->getUrl();
-                        
+
                         $imageExists = $mediaUrl && file_exists(public_path(parse_url($mediaUrl, PHP_URL_PATH)));
-                        
+
                         $src = $imageExists
                             ? $mediaUrl
                             : $settings[0]
@@ -52,7 +52,7 @@
                 <span>{{ $products->first()->category->name }}</span>
                 <h5>{{ $products->first()->name }}</h5>
                 <h4>{{ $products->first()->price }} ₺</h4>
-                <p>{{ $products->first()->description }}</p>
+                <p>{!! $products->first()->description !!}</p>
                 {{-- <button class="button">Add to Cart</button> --}}
             </div>
             <div class="review">
@@ -60,7 +60,7 @@
                 <div class="comment-people">
                     @php
                         Carbon\Carbon::setLocale('tr');
-                        
+
                     @endphp
                     @foreach ($comments as $comment)
                         <div class="content">
