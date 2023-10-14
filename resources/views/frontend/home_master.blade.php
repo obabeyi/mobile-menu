@@ -46,6 +46,14 @@
             $(".owl-carousel").owlCarousel();
         });
     </script>
+    <script>
+        const searchForm = document.querySelector('.header-search form');
+        const searchInput = document.querySelector('.header-search input[type="text"]');
+
+        searchInput.addEventListener('focus', function() {
+            // Açılır kutu veya sonuçları gösteren alanın görünmesi için gerekli işlemleri yapabilirsiniz.
+        });
+    </script>
     @yield('script')
 
 </body>

@@ -69,6 +69,18 @@
         </div>
     </div>
     <!-- end category -->
+    <div class="container">
+        <div class="header-search">
+            <form action="{{ route('search') }}" method="POST">
+                @csrf
+                <div class="search-bar">
+                    <input type="text" name="query" placeholder="Arama yap...">
+                    <a type="hidden"></a>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <!-- menu -->
     <div class="menu segments bg-second">
@@ -103,9 +115,9 @@
                                 @if ($product->category->id == $cat->id)
                                     @php
                                         $mediaUrl = $product->media->first()?->getUrl();
-                                        
+
                                         $imageExists = $mediaUrl && file_exists(public_path(parse_url($mediaUrl, PHP_URL_PATH)));
-                                        
+
                                         $src = $imageExists
                                             ? $mediaUrl
                                             : $settings[0]

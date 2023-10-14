@@ -42,5 +42,9 @@ class AppServiceProvider extends ServiceProvider
             $settings = Setting::with('media')->get();
             $view->with('settings', $settings);
         });
+        View::composer('frontend.body.searchResults', function ($view) {
+            $settings = Setting::with('media')->get();
+            $view->with('settings', $settings);
+        });
     }
 }
